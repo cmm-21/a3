@@ -32,16 +32,20 @@ public:
         
     }
 
+    void keyPressed(int key, int mods) override
+    {
+        if (key == GLFW_KEY_R)
+            boids.initializePositions();
+        if (key == GLFW_KEY_SPACE)
+            boids.pause();
+        if (key == GLFW_KEY_ESCAPE)
+            exit(0);
+    }
+    
     void process() override {
         std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
         if(std::chrono::duration_cast<std::chrono::microseconds>(now-lastFrame).count() >= 10./60. * 1.e6)
         {
-            if(keyDown[GLFW_KEY_R])
-                boids.initializePositions();
-            if(keyDown[GLFW_KEY_SPACE])
-                boids.pause();
-            if(keyDown[GLFW_KEY_ESCAPE])
-                exit(0);
             lastFrame = now;
         }
     }
